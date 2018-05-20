@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>search</title>
+<script src="/socket.io/socket.io.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+<link rel="stylesheet" type="text/css" href="/style.css">
+<script>
+	$(function() {
+		var socket = io.connect();
+		var num=1
+		socket.on('init', function(data){
+			$('ul').prepend("<li class='keyword'>「"+data+"」を含むツイート");
+		})
+		socket.on('msg', function(data) {
+			switch (num%2) {
+				case 1:
+				$('ul').prepend("<li class='blue'>"+data);
+				console.log(data);
+				num++;
+				break;
+				
+				case 0:
+				$('ul').prepend("<li class='light'>"+data);
+				console.log(data);
+				num++;
+				break;
+			}
+    });
+	});
+</script>
+<ul></ul>
